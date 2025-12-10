@@ -6,15 +6,12 @@ MODEL_PATH = "lbph_classifier.yml"
 NAMES_PATH = "face_names.pickle"
 
 def ativarRecognition(frame):
-    # Carrega modelo treinado
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     recognizer.read(MODEL_PATH)
 
-    # Carrega nomes
     with open(NAMES_PATH, "rb") as f:
         id_to_name = pickle.load(f)
 
-    # Converte o frame recebido (da câmera do Streamlit)
     file_bytes = np.asarray(bytearray(frame.read()), dtype=np.uint8)
     img = cv2.imdecode(file_bytes, 1)
 
@@ -28,7 +25,6 @@ def ativarRecognition(frame):
 
         id_, confidence = recognizer.predict(roi)
 
-        # Quanto menor a confiança, mais certeza o modelo tem
         if confidence < 70:
             nome = id_to_name.get(id_, "Desconhecido")
             return "permitido", nome, round(confidence, 2)

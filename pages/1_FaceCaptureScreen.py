@@ -5,9 +5,6 @@ import os
 import cv2
 import numpy as np
 
-# ---------------------------------------------
-# 🔍 Analisar preview para dar status dinâmico
-# ---------------------------------------------
 def analisar_frame(frame):
     try:
         file_bytes = np.asarray(bytearray(frame.read()), dtype=np.uint8)
@@ -26,18 +23,12 @@ def analisar_frame(frame):
     return "Rosto detectado ✔️", "success"
 
 
-# ---------------------------------------------
-# 🖼️ Página de captura
-# ---------------------------------------------
 def captura_main():
 
     st.title("📸 Captura de Fotos — FacialGym")
     st.markdown("Posicione-se corretamente para iniciar a coleta das imagens.")
     st.divider()
 
-    # ----------------------------------------
-    # 🔹 Informações do usuário
-    # ----------------------------------------
     st.subheader("Informações do Usuário")
     col_info = st.columns(2)
 
@@ -54,12 +45,8 @@ def captura_main():
 
     st.divider()
 
-    # ----------------------------------------
-    # 🔹 Layout principal
-    # ----------------------------------------
     col_left, col_right = st.columns([2, 1])
 
-    # ========== COLUNA ESQUERDA ==========
     with col_left:
         st.subheader("Pré‑visualização")
 
@@ -81,7 +68,6 @@ def captura_main():
 
         st.divider()
 
-        # ---------- Botões ----------
         col_btn = st.columns(3)
 
         with col_btn[0]:
@@ -108,7 +94,6 @@ def captura_main():
                 ativarTrain()
                 st.success("Treinamento concluído!")
 
-    # ========== COLUNA DIREITA ==========
     with col_right:
         st.subheader("Fotos Capturadas")
 
@@ -116,13 +101,11 @@ def captura_main():
         total = 0
 
         if person_name.strip() != "" and os.path.exists(dataset_path):
-            # filtrar apenas arquivos de imagem
             images = sorted([
                 f for f in os.listdir(dataset_path)
                 if f.lower().endswith((".jpg", ".jpeg", ".png"))
             ])
 
-            # Exibir miniaturas em grade 3xN
             idx = 0
             while idx < len(images):
                 cols = st.columns(3)
@@ -137,5 +120,4 @@ def captura_main():
         st.markdown(f"Total: **{total} / {max_samples}** fotos")
 
 
-# Necessário para rodar a página no Streamlit
 captura_main()

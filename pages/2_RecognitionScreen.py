@@ -18,7 +18,6 @@ def reconhecimento_main():
         if frame:
             st.image(frame, caption="Último Frame Capturado")
 
-            # Executa o reconhecimento
             status, nome, confianca = ativarRecognition(frame)
 
             if status == "permitido":

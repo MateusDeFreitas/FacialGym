@@ -3,18 +3,11 @@ import os
 import re
 from helper_functions import resize_video
 
-# -----------------------------
-# 🔹 Sanitize do nome do usuário
-# -----------------------------
 def parse_name(name):
-    name = re.sub(r"[^\w\s]", '', name)    # remove caracteres especiais
-    name = re.sub(r"\s+", '_', name)       # troca espaços por _
+    name = re.sub(r"[^\w\s]", '', name)    
+    name = re.sub(r"\s+", '_', name)    
     return name
 
-
-# -----------------------------
-# 🔹 Função para criar as pastas
-# -----------------------------
 def create_folders(final_path, final_full_path):
     if not os.path.exists(final_path):
         os.makedirs(final_path)
@@ -23,9 +16,6 @@ def create_folders(final_path, final_full_path):
         os.makedirs(final_full_path)
 
 
-# -----------------------------
-# 🔹 Captura real das fotos
-# -----------------------------
 def ativarFaceCapture(person_name, max_samples=30):
 
     if not person_name or person_name.strip() == "":
@@ -68,7 +58,6 @@ def ativarFaceCapture(person_name, max_samples=30):
 
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 255), 2)
 
-            # Q = captura manual
             if True:
                 sample += 1
                 filename = f"{person_name}.{sample}.jpg"
